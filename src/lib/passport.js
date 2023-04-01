@@ -13,22 +13,17 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [
-        email,
-      ]);
-
-      if (!rows.length)
-        return done(null, false, req.flash("error", "No user found"));
-
-      const user = rows[0];
-      const validPassword = await matchPassword(password, user.password);
-
-      if (!validPassword) {
-        req.flash("error", "Incorrect Password");
+      const [rows] = await pool.query(
+        "SELECT * FROM users WHERE email = ? AND password = ?",
+        [email, password]
+      );
+      if (rows.length >= 1) {
+        const user = rows[0];
+        console.log("IF");
+        return done(null, user);
+      } else {
         return done(null, false);
       }
-
-      done(null, user);
     }
   )
 );
