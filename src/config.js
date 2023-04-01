@@ -3,10 +3,10 @@ config();
 
 export const database = {
   connectionLimit: 10,
-  host: process.env.DATABASE_HOST || "localhost",
-  user: process.env.DATABASE_USER || "root",
-  password: process.env.DATABASE_PASSWORD || "mypassword",
-  database: process.env.DATABASE_NAME || "linksdb",
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  // password: process.env.DATABASE_PASSWORD || "mypassword",
+  database: process.env.DATABASE_NAME,
 };
 
 export const port = process.env.PORT || 4000;

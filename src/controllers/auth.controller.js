@@ -46,3 +46,11 @@ export const logout = (req, res, next) => {
     res.redirect("/");
   });
 };
+
+export const test = async (req, res, next) => {
+  const [rows] = await pool.query("SELECT * FROM test");
+
+  const test = rows[0];
+
+  console.log("TEST", test);
+};

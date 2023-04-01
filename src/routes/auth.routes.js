@@ -5,6 +5,7 @@ import {
   renderSignIn,
   signIn,
   logout,
+  test,
 } from "../controllers/auth.controller.js";
 import { validator } from "../middlewares/validator.middleware.js";
 import { signinSchema, signupSchema } from "../schemas/auth.schema.js";
@@ -20,5 +21,7 @@ router.get("/signin", renderSignIn);
 router.post("/signin", validator(signinSchema), signIn);
 
 router.get("/logout", logout);
+
+router.get("/test", test);
 
 export default router;
