@@ -3,7 +3,7 @@ export const validator = (schema) => (req, res, next) => {
   if (error) {
     const errors = error.errors.map((error) => error.message);
     req.flash("error", errors);
-    return res.status(400).redirect(req.originalUrl);
+    return res.status(400).send(error);
   }
   return next();
 };
