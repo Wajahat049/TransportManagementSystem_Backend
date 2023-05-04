@@ -7,6 +7,7 @@ import passport from "passport";
 import cookieParser from "cookie-parser";
 import flash from "connect-flash";
 import expressMySQLSession from "express-mysql-session";
+import cors from "cors";
 import { fileURLToPath } from "url";
 
 import routes from "./routes/index.js";
@@ -19,6 +20,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MySQLStore = expressMySQLSession(session);
 
 app.set("views", path.join(__dirname, "views"));
+app.use(cors());
 app.engine(
   ".hbs",
   create({
@@ -26,7 +28,7 @@ app.engine(
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
     extname: ".hbs",
-    helpers
+    helpers,
   }).engine
 );
 app.set("view engine", ".hbs");
