@@ -3,6 +3,7 @@ import { encryptPassword } from "../lib/helpers.js";
 import { pool } from "../database.js";
 
 export const createDriver = async (req, res, next) => {
+  // console.log("REQ", req);
   try {
     const {
       first_name,
@@ -63,22 +64,35 @@ export const createDriver = async (req, res, next) => {
       last_drug_test_completed_date,
       drug_test_due_date,
     });
+    console.log("Result", result);
 
     if (result?.affectedRows !== 0) {
       res
         .status(200)
         .send({ message: "Success", data: "Driver created successfully" });
+      return;
     }
-
-    console.log("Result", result);
   } catch (error) {
     console.log("ERR", error);
-    res.status(200).send({ message: "Error", data: "Driver not created" });
+    res.status(400).send({ message: "Error", data: "Driver not created" });
+    return;
   }
 };
 
 export const getDrivers = async (req, res, next) => {
   const [rows] = await pool.query("SELECT * FROM drivers");
+
+  const result = rows;
+
+  res.status(200).send({ message: "Success", data: result });
+
+  console.log("RES", result);
+};
+
+export const getDriverById = async (req, res, next) => {
+  const [rows] = await pool.query(
+    `SELECT * FROM drivers where id=${req.query.id}`
+  );
 
   const result = rows;
 
