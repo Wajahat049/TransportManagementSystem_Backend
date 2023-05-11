@@ -3,18 +3,20 @@ import {
   createDriver,
   getDrivers,
   getDriverById,
+  editDriver,
 } from "../controllers/driver.controller.js";
 import { driverSchema } from "../schemas/driver.schema.js";
 import { validator } from "../middlewares/validator.middleware.js";
 
 const router = Router();
 
-// Create Driver
+// Get Drivers
 router.get("/get-drivers", getDrivers);
 
+// Get Driver by Id
 router.get("/get-driver", getDriverById);
 
-// Get Drivers
+// Create Driver
 router.post(
   "/create-driver",
   validator(driverSchema),
@@ -22,7 +24,17 @@ router.post(
   function (req, res, err) {
     console.log("RES", res);
     console.log("req", req);
-    //   res.send({ message: "Success", data: req.user });
+  }
+);
+
+// Update Driver
+router.put(
+  "/edit-driver",
+  validator(driverSchema),
+  editDriver,
+  function (req, res, err) {
+    console.log("RES", res);
+    console.log("req", req);
   }
 );
 

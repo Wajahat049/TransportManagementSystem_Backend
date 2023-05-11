@@ -84,4 +84,12 @@ export const driverSchema = z.object({
   drug_test_due_date: z.coerce.date({
     required_error: "last_drug_test_completed is required",
   }),
+  company_name: z.string({}).optional(),
+  HST_no: z.string({}).optional(),
+  pay_HST: z.string({}).optional(),
+  pay_by: z.string({}).optional(),
+  salary: z.number({}).optional(),
+  payment_frequency: z.string({}).optional(),
+  hourly_rate: z.number({}).optional(),
+  mileage_rate: z.number({}).optional(),
 });

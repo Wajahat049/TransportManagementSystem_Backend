@@ -32,6 +32,13 @@ export const createDriver = async (req, res, next) => {
       medical_due_date,
       last_drug_test_completed_date,
       drug_test_due_date,
+      HST_no,
+      pay_HST,
+      pay_by,
+      salary,
+      payment_frequency,
+      hourly_rate,
+      mileage_rate,
     } = req.body;
 
     // Saving Driver in the Database
@@ -63,6 +70,13 @@ export const createDriver = async (req, res, next) => {
       medical_due_date,
       last_drug_test_completed_date,
       drug_test_due_date,
+      HST_no,
+      pay_HST,
+      pay_by,
+      salary,
+      payment_frequency,
+      hourly_rate,
+      mileage_rate,
     });
     console.log("Result", result);
 
@@ -75,6 +89,102 @@ export const createDriver = async (req, res, next) => {
   } catch (error) {
     console.log("ERR", error);
     res.status(400).send({ message: "Error", data: "Driver not created" });
+    return;
+  }
+};
+
+export const editDriver = async (req, res, next) => {
+  console.log("REQ", req.body);
+  try {
+    const {
+      first_name,
+      last_name,
+      gender,
+      date_of_birth,
+      phone_no,
+      email_address,
+      password,
+      street_no,
+      street_name,
+      city,
+      postal_or_zip_code,
+      province,
+      country,
+      license_no,
+      license_class,
+      license_country,
+      license_province,
+      license_date_of_issuance,
+      license_date_of_expiry,
+      driver_type,
+      pay_type,
+      driver_status,
+      last_medical_completed_date,
+      medical_due_date,
+      last_drug_test_completed_date,
+      drug_test_due_date,
+      company_name,
+      HST_no,
+      pay_HST,
+      pay_by,
+      salary,
+      payment_frequency,
+      hourly_rate,
+      mileage_rate,
+    } = req.body;
+
+    // Saving Driver in the Database
+
+    const [result] = await pool.query("UPDATE drivers SET ? where id = ? ", [
+      {
+        first_name,
+        last_name,
+        gender,
+        date_of_birth,
+        phone_no,
+        email_address,
+        password,
+        street_no,
+        street_name,
+        city,
+        postal_or_zip_code,
+        province,
+        country,
+        license_no,
+        license_class,
+        license_country,
+        license_province,
+        license_date_of_issuance,
+        license_date_of_expiry,
+        driver_type,
+        pay_type,
+        driver_status,
+        last_medical_completed_date,
+        medical_due_date,
+        last_drug_test_completed_date,
+        drug_test_due_date,
+        company,
+        HST_no,
+        pay_HST,
+        pay_by,
+        salary,
+        payment_frequency,
+        hourly_rate,
+        mileage_rate,
+      },
+      req.query.id,
+    ]);
+    console.log("Result", result);
+
+    if (result?.affectedRows !== 0) {
+      res
+        .status(200)
+        .send({ message: "Success", data: "Driver updated successfully" });
+      return;
+    }
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(400).send({ message: "Error", data: "Driver not updated" });
     return;
   }
 };
