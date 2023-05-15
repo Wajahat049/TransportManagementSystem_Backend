@@ -4,6 +4,7 @@ import {
   getDrivers,
   getDriverById,
   editDriver,
+  deleteDriverById,
 } from "../controllers/driver.controller.js";
 import { driverSchema } from "../schemas/driver.schema.js";
 import { validator } from "../middlewares/validator.middleware.js";
@@ -37,5 +38,10 @@ router.put(
     console.log("req", req);
   }
 );
+
+router.delete("/delete-driver", deleteDriverById, function (req, res, err) {
+  console.log("RES", res);
+  console.log("req", req);
+});
 
 export default router;

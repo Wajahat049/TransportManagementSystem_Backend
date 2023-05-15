@@ -39,6 +39,9 @@ export const createDriver = async (req, res, next) => {
       payment_frequency,
       hourly_rate,
       mileage_rate,
+      license,
+      passport,
+      other_documents,
     } = req.body;
 
     // Saving Driver in the Database
@@ -77,6 +80,9 @@ export const createDriver = async (req, res, next) => {
       payment_frequency,
       hourly_rate,
       mileage_rate,
+      license,
+      passport,
+      other_documents,
     });
     console.log("Result", result);
 
@@ -131,6 +137,9 @@ export const editDriver = async (req, res, next) => {
       payment_frequency,
       hourly_rate,
       mileage_rate,
+      license,
+      passport,
+      other_documents,
     } = req.body;
 
     // Saving Driver in the Database
@@ -163,7 +172,7 @@ export const editDriver = async (req, res, next) => {
         medical_due_date,
         last_drug_test_completed_date,
         drug_test_due_date,
-        company,
+        company_name,
         HST_no,
         pay_HST,
         pay_by,
@@ -171,6 +180,9 @@ export const editDriver = async (req, res, next) => {
         payment_frequency,
         hourly_rate,
         mileage_rate,
+        license,
+        passport,
+        other_documents,
       },
       req.query.id,
     ]);
@@ -185,6 +197,26 @@ export const editDriver = async (req, res, next) => {
   } catch (error) {
     console.log("ERR", error);
     res.status(400).send({ message: "Error", data: "Driver not updated" });
+    return;
+  }
+};
+
+export const deleteDriverById = async (req, res, next) => {
+  try {
+    const [rows] = await pool.query(
+      `DELETE FROM drivers where id=${req.query.id}`
+    );
+
+    const result = rows;
+
+    if (result?.affectedRows !== 0) {
+      return res
+        .status(200)
+        .send({ message: "Success", data: "Driver deleted successfully" });
+    }
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(400).send({ message: "Error", data: "Driver not deleted" });
     return;
   }
 };
