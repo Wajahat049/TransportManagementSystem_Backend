@@ -288,9 +288,27 @@ export const getDriverById = async (req, res, next) => {
         .split(":")[1]
     : null;
 
+  var passport_base64 = result[0]?.passport
+    ? Buffer.from(result[0].passport).toString("ascii")
+    : null;
+
+  var other_documents_type = result[0]?.other_documents
+    ? Buffer.from(result[0].other_documents)
+        .toString("ascii")
+        .split(";")[0]
+        .split(":")[1]
+    : null;
+
+  var other_documents_base64 = result[0]?.other_documents
+    ? Buffer.from(result[0].other_documents).toString("ascii")
+    : null;
+
   result[0].license_type = license_type;
   result[0].passport_type = passport_type;
   result[0].license_base64 = license_base64;
+  result[0].passport_base64 = passport_base64;
+  result[0].other_documents_type = other_documents_type;
+  result[0].other_documents_base64 = other_documents_base64;
 
   console.log("RESULT", result);
 
