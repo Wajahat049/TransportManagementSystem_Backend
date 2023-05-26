@@ -1,6 +1,9 @@
 import passport from "passport";
 import { encryptPassword } from "../lib/helpers.js";
 import { pool } from "../database.js";
+import { fileTypeFromBuffer } from "file-type";
+import { Blob } from "buffer";
+import fs from "fs";
 
 export const createDriver = async (req, res, next) => {
   // console.log("REQ", req);
@@ -266,9 +269,40 @@ export const getDriverById = async (req, res, next) => {
     `SELECT * FROM drivers where id=${req.query.id}`
   );
 
-  const result = rows;
+  var result = rows;
+  var license_type = result[0]?.license
+    ? Buffer.from(result[0].license)
+        .toString("ascii")
+        .split(";")[0]
+        .split(":")[1]
+    : null;
 
-  res.status(200).send({ message: "Success", data: result });
+  var license_base64 = result[0]?.license
+    ? Buffer.from(result[0].license).toString("ascii")
+    : null;
 
-  console.log("RES", result);
+  var passport_type = result[0]?.passport
+    ? Buffer.from(result[0].passport)
+        .toString("ascii")
+        .split(";")[0]
+        .split(":")[1]
+    : null;
+
+  result[0].license_type = license_type;
+  result[0].passport_type = passport_type;
+  result[0].license_base64 = license_base64;
+
+  console.log("RESULT", result);
+
+  res.status(200).send({
+    message: "Success",
+    data: [
+      // [
+      ...result,
+      //   { license_type: license_type },
+      //   { passport_type: passport_type },
+      //   { license_base64: license_base64 },
+      // ],
+    ],
+  });
 };

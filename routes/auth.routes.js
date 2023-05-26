@@ -18,13 +18,7 @@ router.post("/signup", validator(signupSchema), signUp);
 
 // SINGIN
 // router.get("/signin", renderSignIn);
-router.post("/login", validator(signinSchema), signIn, function (req, res) {
-  // If this function gets called, authentication was successful.
-  // `req.user` contains the authenticated user.
-  // Then you can send your json as response.
-  // res.json({message:"Success", username: req.user.username});
-  res.send({ message: "Success", data: req.user });
-});
+router.post("/login", validator(signinSchema), signIn);
 
 router.get("/logout", logout);
 
