@@ -14,13 +14,13 @@ const router = Router();
 
 // SIGNUP
 router.get("/signup", renderSignUp);
-router.post("/signup", validator(signupSchema), signUp);
+router.post("/signUp", validator(signupSchema), signUp);
 
 // SINGIN
 // router.get("/signin", renderSignIn);
-router.post("/login", validator(signinSchema), signIn);
+router.post("/signIn", validator(signinSchema), signIn);
 
-router.get("/logout", logout);
+router.get("/signOut", logout);
 
 router.get("/test", test);
 
