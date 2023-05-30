@@ -5,7 +5,7 @@ import { fileTypeFromBuffer } from "file-type";
 import { Blob } from "buffer";
 import fs from "fs";
 
-export const createOrder = async (req, res, next) => {
+export const createReceiver = async (req, res, next) => {
   // console.log("REQ", req);
   try {
     const {
@@ -24,9 +24,9 @@ export const createOrder = async (req, res, next) => {
       reefer_hours,
     } = req.body;
 
-    // Saving Orders in the Database
+    // Saving Receivers in the Database
 
-    const [result] = await pool.query("INSERT INTO orders SET ? ", {
+    const [result] = await pool.query("INSERT INTO receivers SET ? ", {
       unit_no,
       year,
       make,
@@ -46,17 +46,17 @@ export const createOrder = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res
         .status(200)
-        .send({ message: "Success", data: "Order created successfully" });
+        .send({ message: "Success", data: "Receiver created successfully" });
       return;
     }
   } catch (error) {
     console.log("ERR", error);
-    res.status(400).send({ message: "Error", data: "Order not created" });
+    res.status(400).send({ message: "Error", data: "Receiver not created" });
     return;
   }
 };
 
-export const editOrder = async (req, res, next) => {
+export const editReceiver = async (req, res, next) => {
   console.log("REQ", req.body);
   try {
     const {
@@ -75,9 +75,9 @@ export const editOrder = async (req, res, next) => {
       reefer_hours,
     } = req.body;
 
-    // Saving Order in the Database
+    // Saving Receiver in the Database
 
-    const [result] = await pool.query("UPDATE orders SET ? where id = ? ", [
+    const [result] = await pool.query("UPDATE receivers SET ? where id = ? ", [
       {
         unit_no,
         year,
@@ -100,20 +100,20 @@ export const editOrder = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res
         .status(200)
-        .send({ message: "Success", data: "Order updated successfully" });
+        .send({ message: "Success", data: "Receiver updated successfully" });
       return;
     }
   } catch (error) {
     console.log("ERR", error);
-    res.status(400).send({ message: "Error", data: "Order not updated" });
+    res.status(400).send({ message: "Error", data: "Receiver not updated" });
     return;
   }
 };
 
-export const deleteOrderById = async (req, res, next) => {
+export const deleteReceiverById = async (req, res, next) => {
   try {
     const [rows] = await pool.query(
-      `DELETE FROM orders where id=${req.query.id}`
+      `DELETE FROM receivers where id=${req.query.id}`
     );
 
     const result = rows;
@@ -121,17 +121,17 @@ export const deleteOrderById = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       return res
         .status(200)
-        .send({ message: "Success", data: "Order deleted successfully" });
+        .send({ message: "Success", data: "Receiver deleted successfully" });
     }
   } catch (error) {
     console.log("ERR", error);
-    res.status(400).send({ message: "Error", data: "Order not deleted" });
+    res.status(400).send({ message: "Error", data: "Receiver not deleted" });
     return;
   }
 };
 
-export const getOrders = async (req, res, next) => {
-  const [rows] = await pool.query("SELECT * FROM orders");
+export const getReceivers = async (req, res, next) => {
+  const [rows] = await pool.query("SELECT * FROM receivers");
 
   const result = rows;
 
@@ -140,9 +140,9 @@ export const getOrders = async (req, res, next) => {
   console.log("RES", result);
 };
 
-export const getOrderById = async (req, res, next) => {
+export const getReceiverById = async (req, res, next) => {
   const [rows] = await pool.query(
-    `SELECT * FROM orders where id=${req.query.id}`
+    `SELECT * FROM receivers where id=${req.query.id}`
   );
 
   var result = rows;
