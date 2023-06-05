@@ -9,99 +9,51 @@ export const createEmployee = async (req, res, next) => {
   // console.log("REQ", req);
   try {
     const {
+      employment_type,
+      pay_type,
+      division,
       first_name,
       last_name,
       gender,
       date_of_birth,
       phone_no,
       email_address,
-      password,
       street_no,
       street_name,
       city,
       postal_or_zip_code,
       province,
       country,
-      license_no,
-      license_class,
-      license_country,
-      license_province,
-      license_date_of_issuance,
-      license_date_of_expiry,
-      employee_type,
-      pay_type,
-      employee_status,
-      last_medical_completed_date,
-      medical_due_date,
-      last_drug_test_completed_date,
-      drug_test_due_date,
-      company_name,
+      salary_rate,
+      hourly_rate,
+      payment_frequency,
       emergency_contact_no,
       emergency_contact_name,
-      HST_no,
-      pay_HST,
-      pay_by,
-      salary,
-      payment_frequency,
-      hourly_rate,
-      mileage_rate,
-      last_pay_period,
-      last_payment_date,
-      gross_payroll,
-      cash_advance_balance,
-      monthly_deductions,
-      license,
-      passport,
-      other_documents,
     } = req.body;
 
     // Saving employees in the Database
 
     const [result] = await pool.query("INSERT INTO employees SET ? ", {
+      employment_type,
+      pay_type,
+      division,
       first_name,
       last_name,
       gender,
       date_of_birth,
       phone_no,
       email_address,
-      password,
       street_no,
       street_name,
       city,
       postal_or_zip_code,
       province,
       country,
-      license_no,
-      license_class,
-      license_country,
-      license_province,
-      license_date_of_issuance,
-      license_date_of_expiry,
-      employee_type,
-      pay_type,
-      employee_status,
-      last_medical_completed_date,
-      medical_due_date,
-      last_drug_test_completed_date,
-      drug_test_due_date,
-      company_name,
+      salary_rate,
+      hourly_rate,
+      payment_frequency,
       emergency_contact_no,
       emergency_contact_name,
-      HST_no,
-      pay_HST,
-      pay_by,
-      salary,
-      payment_frequency,
-      hourly_rate,
-      mileage_rate,
-      last_pay_period,
-      last_payment_date,
-      gross_payroll,
-      cash_advance_balance,
-      monthly_deductions,
-      license,
-      passport,
-      other_documents,
     });
     console.log("Result", result);
 
@@ -122,100 +74,52 @@ export const editEmployee = async (req, res, next) => {
   console.log("REQ", req.body);
   try {
     const {
+      employment_type,
+      pay_type,
+      division,
       first_name,
       last_name,
       gender,
       date_of_birth,
       phone_no,
       email_address,
-      password,
       street_no,
       street_name,
       city,
       postal_or_zip_code,
       province,
       country,
-      license_no,
-      license_class,
-      license_country,
-      license_province,
-      license_date_of_issuance,
-      license_date_of_expiry,
-      employee_type,
-      pay_type,
-      employee_status,
-      last_medical_completed_date,
-      medical_due_date,
-      last_drug_test_completed_date,
-      drug_test_due_date,
-      company_name,
+      salary_rate,
+      hourly_rate,
+      payment_frequency,
       emergency_contact_no,
       emergency_contact_name,
-      HST_no,
-      pay_HST,
-      pay_by,
-      salary,
-      payment_frequency,
-      hourly_rate,
-      mileage_rate,
-      last_pay_period,
-      last_payment_date,
-      gross_payroll,
-      cash_advance_balance,
-      monthly_deductions,
-      license,
-      passport,
-      other_documents,
     } = req.body;
 
     // Saving employee in the Database
 
     const [result] = await pool.query("UPDATE employees SET ? where id = ? ", [
       {
+        employment_type,
+        pay_type,
+        division,
         first_name,
         last_name,
         gender,
         date_of_birth,
         phone_no,
         email_address,
-        password,
         street_no,
         street_name,
         city,
         postal_or_zip_code,
         province,
         country,
-        license_no,
-        license_class,
-        license_country,
-        license_province,
-        license_date_of_issuance,
-        license_date_of_expiry,
-        employee_type,
-        pay_type,
-        employee_status,
-        last_medical_completed_date,
-        medical_due_date,
-        last_drug_test_completed_date,
-        drug_test_due_date,
-        company_name,
+        salary_rate,
+        hourly_rate,
+        payment_frequency,
         emergency_contact_no,
         emergency_contact_name,
-        HST_no,
-        pay_HST,
-        pay_by,
-        salary,
-        payment_frequency,
-        hourly_rate,
-        mileage_rate,
-        last_pay_period,
-        last_payment_date,
-        gross_payroll,
-        cash_advance_balance,
-        monthly_deductions,
-        license,
-        passport,
-        other_documents,
       },
       req.query.id,
     ]);
@@ -270,57 +174,11 @@ export const getEmployeeById = async (req, res, next) => {
   );
 
   var result = rows;
-  var license_type = result[0]?.license
-    ? Buffer.from(result[0].license)
-        .toString("ascii")
-        .split(";")[0]
-        .split(":")[1]
-    : null;
-
-  var license_base64 = result[0]?.license
-    ? Buffer.from(result[0].license).toString("ascii")
-    : null;
-
-  var passport_type = result[0]?.passport
-    ? Buffer.from(result[0].passport)
-        .toString("ascii")
-        .split(";")[0]
-        .split(":")[1]
-    : null;
-
-  var passport_base64 = result[0]?.passport
-    ? Buffer.from(result[0].passport).toString("ascii")
-    : null;
-
-  var other_documents_type = result[0]?.other_documents
-    ? Buffer.from(result[0].other_documents)
-        .toString("ascii")
-        .split(";")[0]
-        .split(":")[1]
-    : null;
-
-  var other_documents_base64 = result[0]?.other_documents
-    ? Buffer.from(result[0].other_documents).toString("ascii")
-    : null;
-
-  result[0].license_type = license_type;
-  result[0].passport_type = passport_type;
-  result[0].license_base64 = license_base64;
-  result[0].passport_base64 = passport_base64;
-  result[0].other_documents_type = other_documents_type;
-  result[0].other_documents_base64 = other_documents_base64;
 
   console.log("RESULT", result);
 
   res.status(200).send({
     message: "Success",
-    data: [
-      // [
-      ...result,
-      //   { license_type: license_type },
-      //   { passport_type: passport_type },
-      //   { license_base64: license_base64 },
-      // ],
-    ],
+    data: [...result],
   });
 };
