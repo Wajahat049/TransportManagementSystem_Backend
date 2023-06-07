@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const companySchema = z.object({
-  user_id: z.string({
+  user_id: z.number({
     required_error: "user_id is required",
   }),
   name: z.string({
@@ -22,6 +22,9 @@ export const companySchema = z.object({
   }),
   postal_or_zip_code: z.string({
     required_error: "postal_or_zip_code is required",
+  }),
+  currency: z.string({
+    required_error: "currency is required",
   }),
   province: z.string({
     required_error: "province is required",
@@ -52,9 +55,6 @@ export const companySchema = z.object({
   }),
   bill_of_lading: z.string({
     required_error: "bill_of_lading is required",
-  }),
-  PIP_no: z.string({
-    required_error: "PIP_no is required",
   }),
   customer_invoice: z.string({
     required_error: "customer_invoice is required",

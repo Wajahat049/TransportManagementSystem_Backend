@@ -1,9 +1,6 @@
 import passport from "passport";
 import { encryptPassword } from "../lib/helpers.js";
 import { pool } from "../database.js";
-import { fileTypeFromBuffer } from "file-type";
-import { Blob } from "buffer";
-import fs from "fs";
 
 export const createDriver = async (req, res, next) => {
   // console.log("REQ", req);
