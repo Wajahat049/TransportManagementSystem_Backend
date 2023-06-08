@@ -7,6 +7,7 @@ import user from "./user.routes.js";
 import driver from "./driver.routes.js";
 import employee from "./employee.routes.js";
 import company from "./company.routes.js";
+import customer from "./customer.routes.js";
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.use(company);
 // router.use(orderML);
 router.use(driver);
 router.use(employee);
+router.use(customer);
 router.use("/links", links);
 
 export default router;

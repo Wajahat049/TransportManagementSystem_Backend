@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const customerSchema = z.object({
-  customer_name: z.string({
+  name: z.string({
     required_error: "customer_name is required",
   }),
   contact_name: z.string({
@@ -14,19 +14,6 @@ export const customerSchema = z.object({
     .email({
       message: "email_address is not valid",
     }),
-  password: z
-    .string({
-      required_error: "Password is required",
-    })
-    .min(6, {
-      message: "Password must be at least 6 characters long",
-    }),
-  //   gender: z.string({
-  //     required_error: "gender is required",
-  //   }),
-  //   date_of_birth: z.coerce.date({
-  //     required_error: "date_of_birth is required",
-  //   }),
   phone_no: z.number({
     required_error: "phone_no is required",
   }),
@@ -48,7 +35,7 @@ export const customerSchema = z.object({
   country: z.string({
     required_error: "country is required",
   }),
-  net_days: z.string({
+  payment_net_days: z.number({
     required_error: "net_days is required",
   }),
 });
