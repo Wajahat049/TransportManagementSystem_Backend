@@ -8,6 +8,7 @@ import driver from "./driver.routes.js";
 import employee from "./employee.routes.js";
 import company from "./company.routes.js";
 import customer from "./customer.routes.js";
+import vendor from "./vendor.routes.js";
 
 const router = Router();
 
@@ -19,6 +20,7 @@ router.use(company);
 router.use(driver);
 router.use(employee);
 router.use(customer);
+router.use(vendor);
 router.use("/links", links);
 
 export default router;
