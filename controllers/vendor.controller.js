@@ -6,37 +6,33 @@ export const createVendor = async (req, res, next) => {
   // console.log("REQ", req);
   try {
     const {
-      unit_no,
-      year,
-      make,
-      model,
-      vin_no,
-      odometer,
-      plate_no,
-      annual_safety_inspection_date,
-      vehicle_type,
-      asset_type,
-      trailer_type,
-      trailer_size,
-      reefer_hours,
+      name,
+      contact_name,
+      phone_no,
+      email_address,
+      street_no,
+      street_name,
+      city,
+      postal_or_zip_code,
+      province,
+      country,
+      payment_net_days,
     } = req.body;
 
     // Saving vendors in the Database
 
     const [result] = await pool.query("INSERT INTO vendors SET ? ", {
-      unit_no,
-      year,
-      make,
-      model,
-      vin_no,
-      odometer,
-      plate_no,
-      annual_safety_inspection_date,
-      vehicle_type,
-      asset_type,
-      trailer_type,
-      trailer_size,
-      reefer_hours,
+      name,
+      contact_name,
+      phone_no,
+      email_address,
+      street_no,
+      street_name,
+      city,
+      postal_or_zip_code,
+      province,
+      country,
+      payment_net_days,
     });
     console.log("Result", result);
 
@@ -57,38 +53,34 @@ export const editVendor = async (req, res, next) => {
   console.log("REQ", req.body);
   try {
     const {
-      unit_no,
-      year,
-      make,
-      model,
-      vin_no,
-      odometer,
-      plate_no,
-      annual_safety_inspection_date,
-      vehicle_type,
-      asset_type,
-      trailer_type,
-      trailer_size,
-      reefer_hours,
+      name,
+      contact_name,
+      phone_no,
+      email_address,
+      street_no,
+      street_name,
+      city,
+      postal_or_zip_code,
+      province,
+      country,
+      payment_net_days,
     } = req.body;
 
-    // Saving Vendor in the Database
+    // Saving employee in the Database
 
     const [result] = await pool.query("UPDATE vendors SET ? where id = ? ", [
       {
-        unit_no,
-        year,
-        make,
-        model,
-        vin_no,
-        odometer,
-        plate_no,
-        annual_safety_inspection_date,
-        vehicle_type,
-        asset_type,
-        trailer_type,
-        trailer_size,
-        reefer_hours,
+        name,
+        contact_name,
+        phone_no,
+        email_address,
+        street_no,
+        street_name,
+        city,
+        postal_or_zip_code,
+        province,
+        country,
+        payment_net_days,
       },
       req.query.id,
     ]);
@@ -139,7 +131,7 @@ export const getVendors = async (req, res, next) => {
 
 export const getVendorById = async (req, res, next) => {
   const [rows] = await pool.query(
-    `SELECT * FROM vendor where id=${req.query.id}`
+    `SELECT * FROM vendors where id=${req.query.id}`
   );
 
   var result = rows;

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const vendorSchema = z.object({
-  vendor_name: z.string({
-    required_error: "vendor_name is required",
+  name: z.string({
+    required_error: "customer_name is required",
   }),
   contact_name: z.string({
     required_error: "contact_name is required",
@@ -13,13 +13,6 @@ export const vendorSchema = z.object({
     })
     .email({
       message: "email_address is not valid",
-    }),
-  password: z
-    .string({
-      required_error: "Password is required",
-    })
-    .min(6, {
-      message: "Password must be at least 6 characters long",
     }),
   phone_no: z.number({
     required_error: "phone_no is required",
@@ -42,7 +35,7 @@ export const vendorSchema = z.object({
   country: z.string({
     required_error: "country is required",
   }),
-  net_days: z.string({
+  payment_net_days: z.number({
     required_error: "net_days is required",
   }),
 });
