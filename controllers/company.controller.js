@@ -68,36 +68,50 @@ export const editCompany = async (req, res, next) => {
   console.log("REQ", req.body);
   try {
     const {
-      unit_no,
-      year,
-      make,
-      model,
-      vin_no,
-      odometer,
-      plate_no,
-      annual_safety_inspection_date,
-      vehicle_type,
-      asset_type,
-      trailer_type,
-      trailer_size,
-      reefer_hours,
+      user_id,
+      name,
+      email_address,
+      street_no,
+      street_name,
+      city,
+      province,
+      country,
+      postal_or_zip_code,
+      currency,
+      CVOR_no,
+      DOT_no,
+      MC_no,
+      SCAC_code,
+      carrier_code,
+      CTPAT_no,
+      PIP_no,
+      bill_of_lading,
+      customer_invoice,
+      logo,
     } = req.body;
 
     const [result] = await pool.query("UPDATE companies SET ? where id = ? ", [
       {
-        unit_no,
-        year,
-        make,
-        model,
-        vin_no,
-        odometer,
-        plate_no,
-        annual_safety_inspection_date,
-        vehicle_type,
-        asset_type,
-        trailer_type,
-        trailer_size,
-        reefer_hours,
+        user_id,
+        name,
+        email_address,
+        street_no,
+        street_name,
+        city,
+        province,
+        country,
+        postal_or_zip_code,
+        currency,
+        CVOR_no,
+        DOT_no,
+        MC_no,
+        SCAC_code,
+        carrier_code,
+        CTPAT_no,
+        PIP_no,
+        bill_of_lading,
+        customer_invoice,
+        logo,
       },
       req.query.id,
     ]);
@@ -153,7 +167,60 @@ export const getCompanyById = async (req, res, next) => {
 
   var result = rows;
 
-  console.log("RESULT", result);
+  var bill_of_lading_base64 = result[0]?.bill_of_lading
+    ? Buffer.from(result[0].bill_of_lading).toString("ascii")
+    : null;
+
+  var customer_invoice_base64 = result[0]?.customer_invoice
+    ? Buffer.from(result[0].customer_invoice).toString("ascii")
+    : null;
+
+  var logo_base64 = result[0]?.logo
+    ? Buffer.from(result[0].logo).toString("ascii")
+    : null;
+
+  result[0].bill_of_lading_base64 = bill_of_lading_base64;
+  result[0].customer_invoice_base64 = customer_invoice_base64;
+  result[0].logo_base64 = logo_base64;
+
+  res.status(200).send({
+    message: "Success",
+    data: [...result],
+  });
+};
+
+export const getCompanyByUserId = async (req, res, next) => {
+  const [rows] = await pool.query(
+    `SELECT * FROM companies where user_id=${req.query.id}`
+  );
+
+  var result = rows;
+
+  if (!result) {
+    res.status(200).send({
+      message: "Error",
+      data: [],
+    });
+    return;
+  }
+
+  var bill_of_lading_base64 = result[0]?.bill_of_lading
+    ? Buffer.from(result[0].bill_of_lading).toString("ascii")
+    : null;
+
+  var customer_invoice_base64 = result[0]?.customer_invoice
+    ? Buffer.from(result[0].customer_invoice).toString("ascii")
+    : null;
+
+  var logo_base64 = result[0]?.logo
+    ? Buffer.from(result[0].logo).toString("ascii")
+    : null;
+
+  if (result[0]) {
+    result[0].bill_of_lading_base64 = bill_of_lading_base64;
+    result[0].customer_invoice_base64 = customer_invoice_base64;
+    result[0].logo_base64 = logo_base64;
+  }
 
   res.status(200).send({
     message: "Success",
