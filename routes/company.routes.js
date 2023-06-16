@@ -5,6 +5,7 @@ import {
   getCompanyById,
   editCompany,
   deleteCompanyById,
+  getCompanyByUserId,
 } from "../controllers/company.controller.js";
 import { companySchema } from "../schemas/company.schema.js";
 import { validator } from "../middlewares/validator.middleware.js";
@@ -16,6 +17,8 @@ router.get("/get-companies", getCompanies);
 
 // Get Driver by Id
 router.get("/get-company", getCompanyById);
+
+router.get("/get-company-by-userId", getCompanyByUserId);
 
 // Create Driver
 router.post(

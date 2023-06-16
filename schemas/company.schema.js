@@ -14,7 +14,7 @@ export const companySchema = z.object({
     .email({
       message: "email_address is not valid",
     }),
-  street_no: z.string({
+  street_no: z.number({
     required_error: "street_no is required",
   }),
   city: z.string({
