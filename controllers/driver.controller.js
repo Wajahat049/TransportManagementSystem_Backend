@@ -105,7 +105,11 @@ export const createDriver = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res
         .status(200)
-        .send({ message: "Success", data: "Driver created successfully" });
+        .send({
+          message: "Success",
+          data: "Driver created successfully",
+          id: result.insertId,
+        });
       return;
     }
   } catch (error) {

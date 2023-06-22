@@ -39,7 +39,11 @@ export const createVendor = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res
         .status(200)
-        .send({ message: "Success", data: "Vendor created successfully" });
+        .send({
+          message: "Success",
+          data: "Vendor created successfully",
+          id: result.insertId,
+        });
       return;
     }
   } catch (error) {
