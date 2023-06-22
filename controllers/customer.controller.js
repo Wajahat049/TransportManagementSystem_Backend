@@ -39,7 +39,11 @@ export const createCustomer = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res
         .status(200)
-        .send({ message: "Success", data: "Customer created successfully" });
+        .send({
+          message: "Success",
+          data: "Customer created successfully",
+          id: result.insertId,
+        });
       return;
     }
   } catch (error) {

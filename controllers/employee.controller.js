@@ -57,7 +57,11 @@ export const createEmployee = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res
         .status(200)
-        .send({ message: "Success", data: "Employee created successfully" });
+        .send({
+          message: "Success",
+          data: "Employee created successfully",
+          id: result.insertId,
+        });
       return;
     }
   } catch (error) {
