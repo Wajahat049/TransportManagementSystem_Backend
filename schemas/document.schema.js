@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 export const documentSchema = z.object({
-  name: z.string({
-    required_error: "document_name is required",
+  id: z.number({
+    required_error: "account id is required",
   }),
-  document: z.string({
-    required_error: "document is required",
+  documents: z.string({
+    required_error: "documents array is required",
   }),
 });
