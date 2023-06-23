@@ -10,6 +10,7 @@ import company from "./company.routes.js";
 import customer from "./customer.routes.js";
 import vendor from "./vendor.routes.js";
 import equipment from "./equipment.routes.js";
+import driver_certifications from "./driver_certifications.routes.js";
 import document from "./document.routes.js";
 
 const router = Router();
@@ -24,6 +25,7 @@ router.use(employee);
 router.use(customer);
 router.use(vendor);
 router.use(equipment);
+router.use(driver_certifications);
 router.use(document);
 router.use("/links", links);
 
