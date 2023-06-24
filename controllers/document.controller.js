@@ -107,25 +107,25 @@ export const createDocument = async (req, res, next) => {
 //   }
 // };
 
-// export const deleteEmployeeById = async (req, res, next) => {
-//   try {
-//     const [rows] = await pool.query(
-//       `DELETE FROM employees where id=${req.query.id}`
-//     );
+export const deleteDocumentById = async (req, res, next) => {
+  try {
+    const [rows] = await pool.query(
+      `DELETE FROM documents where id=${req.query.id}`
+    );
 
-//     const result = rows;
+    const result = rows;
 
-//     if (result?.affectedRows !== 0) {
-//       return res
-//         .status(200)
-//         .send({ message: "Success", data: "Employee deleted successfully" });
-//     }
-//   } catch (error) {
-//     console.log("ERR", error);
-//     res.status(400).send({ message: "Error", data: "Employee not deleted" });
-//     return;
-//   }
-// };
+    if (result?.affectedRows !== 0) {
+      return res
+        .status(200)
+        .send({ message: "Success", data: "Document deleted successfully" });
+    }
+  } catch (error) {
+    console.log("ERR", error);
+    res.status(400).send({ message: "Error", data: "Document not deleted" });
+    return;
+  }
+};
 
 // export const getEmployees = async (req, res, next) => {
 //   const [rows] = await pool.query("SELECT * FROM employees");
@@ -137,26 +137,29 @@ export const createDocument = async (req, res, next) => {
 //   console.log("RES", result);
 // };
 
-export const getDocumentsByUserId = async (req, res, next) => {
+export const getDocumentsById = async (req, res, next) => {
   const [rows] = await pool.query(
-    `SELECT * FROM documents where user_id=${req.query.id}`
+    "SELECT * FROM documents WHERE account_id = ? AND type = ?",
+    [req.query.id, req.query.type]
   );
 
   var result = rows;
 
-  var document_base64 =
-    result.length !== 0
-      ? new Buffer.from(result[0].document).toString("ascii")
-      : null;
-
-  if (result.length !== 0) {
-    result[0].document_base64 = document_base64;
-  }
+  var newRes = result?.map((res) => {
+    return {
+      id: res.id,
+      user_id: res.user_id,
+      account_id: res.account_id,
+      name: res.name,
+      type: res.type,
+      document_base64: new Buffer.from(result[0].document).toString("ascii"),
+    };
+  });
 
   console.log("RESULT", result);
 
   res.status(200).send({
     message: "Success",
-    data: [...result],
+    data: [...newRes],
   });
 };
