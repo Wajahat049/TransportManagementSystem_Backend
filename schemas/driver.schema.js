@@ -84,6 +84,9 @@ export const driverSchema = z.object({
   drug_test_due_date: z.coerce.date({
     required_error: "last_drug_test_completed is required",
   }),
+  last_payment_date: z.coerce.date({
+    required_error: "last_payment_date is required",
+  }),
   emergency_contact_no: z.number({}).optional().nullable(),
   emergency_contact_name: z.string({}).optional().nullable(),
   company_name: z.string({}).optional().nullable(),
@@ -95,7 +98,6 @@ export const driverSchema = z.object({
   hourly_rate: z.number({}).optional().nullable(),
   mileage_rate: z.number({}).optional().nullable(),
   last_pay_period: z.string({}).optional().nullable(),
-  last_payment_date: z.coerce.date({}).optional().nullable(),
   gross_payroll: z.number({}).optional().nullable(),
   cash_advance_balance: z.number({}).optional().nullable(),
   monthly_deductions: z.number({}).optional().nullable(),
