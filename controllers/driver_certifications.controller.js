@@ -5,14 +5,21 @@ import { pool } from "../database.js";
 export const createDriverCertificate = async (req, res, next) => {
   // console.log("REQ", req);
   try {
-    const { driver_id, user_id, certificate_number, issue_date, due_date } =
-      req.body;
+    const { driver_id, certificates } = req.body;
 
     // Saving driver_certifications in the Database
 
     const [result] = await pool.query(
-      "INSERT INTO driver_certifications SET ? ",
-      { driver_id, user_id, certificate_number, issue_date, due_date }
+      "INSERT INTO driver_certifications (driver_id, user_id, certificate_number, issue_date, due_date) VALUES ? ",
+      [
+        certificates.map((item) => [
+          driver_id,
+          item.user_id,
+          item.certificate_number,
+          item.issue_date,
+          item.due_date,
+        ]),
+      ]
     );
     console.log("Result", result);
 
