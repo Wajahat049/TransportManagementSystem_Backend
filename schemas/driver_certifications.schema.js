@@ -4,7 +4,9 @@ export const driverCertificateSchema = z.object({
   driver_id: z.number({
     required_error: "driver_id is required",
   }),
-  certificates: z.array({}),
+  certificates: z.string({
+    required_error: "certificates is required",
+  }),
   // user_id: z.number({
   //   required_error: "user_id is required",
   // }),

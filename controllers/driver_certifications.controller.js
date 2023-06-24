@@ -6,13 +6,15 @@ export const createDriverCertificate = async (req, res, next) => {
   // console.log("REQ", req);
   try {
     const { driver_id, certificates } = req.body;
+    console.log("DOC", JSON.parse(certificates));
+    const allCertificates = JSON.parse(certificates);
 
     // Saving driver_certifications in the Database
 
     const [result] = await pool.query(
       "INSERT INTO driver_certifications (driver_id, user_id, certificate_number, issue_date, due_date) VALUES ? ",
       [
-        certificates.map((item) => [
+        allCertificates.map((item) => [
           driver_id,
           item.user_id,
           item.certificate_number,
@@ -26,7 +28,7 @@ export const createDriverCertificate = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res.status(200).send({
         message: "Success",
-        data: "driver_certifications created successfully",
+        data: "Driver certifications created successfully",
       });
       return;
     }
@@ -34,7 +36,7 @@ export const createDriverCertificate = async (req, res, next) => {
     console.log("ERR", error);
     res
       .status(400)
-      .send({ message: "Error", data: "driver_certifications not created" });
+      .send({ message: "Error", data: "Driver certifications not created" });
     return;
   }
 };
