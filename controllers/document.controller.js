@@ -5,15 +5,24 @@ import { pool } from "../database.js";
 export const createDocument = async (req, res, next) => {
   // console.log("REQ", req);
   try {
-    const { name, document, user_id } = req.body;
+    const { documents, id } = req.body;
+    console.log("DOC", JSON.parse(documents));
+    const allDocs = JSON.parse(documents);
 
     // Saving employees in the Database
 
-    const [result] = await pool.query("INSERT INTO documents SET ?", {
-      name,
-      document,
-      user_id,
-    });
+    const [result] = await pool.query(
+      "INSERT INTO documents (account_id, user_id, name, type, document ) VALUES ?",
+      [
+        allDocs.map((item) => [
+          id,
+          item.user_id,
+          item.name,
+          item.type,
+          item.document,
+        ]),
+      ]
+    );
     console.log("Result", result);
 
     if (result?.affectedRows !== 0) {
