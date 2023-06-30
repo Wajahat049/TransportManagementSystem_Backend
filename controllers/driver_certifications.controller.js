@@ -12,11 +12,12 @@ export const createDriverCertificate = async (req, res, next) => {
     // Saving driver_certifications in the Database
 
     const [result] = await pool.query(
-      "INSERT INTO driver_certifications (driver_id, user_id, certificate_number, issue_date, due_date) VALUES ? ",
+      "INSERT INTO driver_certifications (driver_id, user_id,certificate_name, certificate_number, issue_date, due_date) VALUES ? ",
       [
         allCertificates.map((item) => [
           driver_id,
           item.user_id,
+          item.certificate_name,
           item.certificate_number,
           item.issue_date,
           item.due_date,
@@ -44,15 +45,28 @@ export const createDriverCertificate = async (req, res, next) => {
 export const editDriverCertificate = async (req, res, next) => {
   console.log("REQ", req.body);
   try {
-    const { driver_id, user_id, certificate_number, issue_date, due_date } =
-      req.body;
+    const {
+      driver_id,
+      user_id,
+      certificate_name,
+      certificate_number,
+      issue_date,
+      due_date,
+    } = req.body;
 
     // Saving employee in the Database
 
     const [result] = await pool.query(
       "UPDATE driver_certifications SET ? where id = ? ",
       [
-        { driver_id, user_id, certificate_number, issue_date, due_date },
+        {
+          driver_id,
+          user_id,
+          certificate_name,
+          certificate_number,
+          issue_date,
+          due_date,
+        },
         req.query.id,
       ]
     );
