@@ -75,7 +75,7 @@ export const editDriverCertificate = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       res.status(200).send({
         message: "Success",
-        data: "driver_certifications updated successfully",
+        data: "Driver certifications updated successfully",
       });
       return;
     }
@@ -83,7 +83,7 @@ export const editDriverCertificate = async (req, res, next) => {
     console.log("ERR", error);
     res
       .status(400)
-      .send({ message: "Error", data: "driver_certifications not updated" });
+      .send({ message: "Error", data: "Driver certifications not updated" });
     return;
   }
 };
@@ -99,14 +99,14 @@ export const deleteDriverCertificateById = async (req, res, next) => {
     if (result?.affectedRows !== 0) {
       return res.status(200).send({
         message: "Success",
-        data: "driver_certifications deleted successfully",
+        data: "Driver certifications deleted successfully",
       });
     }
   } catch (error) {
     console.log("ERR", error);
     res
       .status(400)
-      .send({ message: "Error", data: "DriverCertificate not deleted" });
+      .send({ message: "Error", data: "Driver Certificate not deleted" });
     return;
   }
 };
