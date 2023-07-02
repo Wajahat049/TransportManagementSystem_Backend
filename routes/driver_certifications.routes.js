@@ -15,7 +15,7 @@ const router = Router();
 router.get("/get-driverCertificates", getDriverCertificates);
 
 // Get DriverCertificate by Id
-router.get("/get-driverCertificate", getDriverCertificateById);
+router.get("/get-driverCertificateByDriverId", getDriverCertificateById);
 
 // Create DriverCertificate
 router.post(

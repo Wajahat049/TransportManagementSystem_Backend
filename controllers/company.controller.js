@@ -48,6 +48,8 @@ export const createCompany = async (req, res, next) => {
       bill_of_lading,
       customer_invoice,
       logo,
+      created_at: Date.now(),
+      updated_at: Date.now(),
     });
     console.log("Result", result);
 
@@ -112,6 +114,7 @@ export const editCompany = async (req, res, next) => {
         bill_of_lading,
         customer_invoice,
         logo,
+        updated_at: Date.now(),
       },
       req.query.id,
     ]);

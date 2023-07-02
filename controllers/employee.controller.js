@@ -51,17 +51,17 @@ export const createEmployee = async (req, res, next) => {
       payment_frequency,
       emergency_contact_no,
       emergency_contact_name,
+      created_at: Date.now(),
+      updated_at: Date.now(),
     });
     console.log("Result", result);
 
     if (result?.affectedRows !== 0) {
-      res
-        .status(200)
-        .send({
-          message: "Success",
-          data: "Employee created successfully",
-          id: result.insertId,
-        });
+      res.status(200).send({
+        message: "Success",
+        data: "Employee created successfully",
+        id: result.insertId,
+      });
       return;
     }
   } catch (error) {
@@ -121,6 +121,7 @@ export const editEmployee = async (req, res, next) => {
         payment_frequency,
         emergency_contact_no,
         emergency_contact_name,
+        updated_at: Date.now(),
       },
       req.query.id,
     ]);

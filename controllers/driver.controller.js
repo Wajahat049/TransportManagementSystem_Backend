@@ -99,17 +99,17 @@ export const createDriver = async (req, res, next) => {
       license,
       passport,
       other_documents,
+      created_at: Date.now(),
+      updated_at: Date.now(),
     });
     console.log("Result", result);
 
     if (result?.affectedRows !== 0) {
-      res
-        .status(200)
-        .send({
-          message: "Success",
-          data: "Driver created successfully",
-          id: result.insertId,
-        });
+      res.status(200).send({
+        message: "Success",
+        data: "Driver created successfully",
+        id: result.insertId,
+      });
       return;
     }
   } catch (error) {
@@ -217,6 +217,7 @@ export const editDriver = async (req, res, next) => {
         license,
         passport,
         other_documents,
+        updated_at: Date.now(),
       },
       req.query.id,
     ]);

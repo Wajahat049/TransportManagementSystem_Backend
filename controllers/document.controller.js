@@ -12,7 +12,7 @@ export const createDocument = async (req, res, next) => {
     // Saving employees in the Database
 
     const [result] = await pool.query(
-      "INSERT INTO documents (account_id, user_id, name, type, document ) VALUES ?",
+      "INSERT INTO documents (account_id, user_id, name, type, document, created_at, updated_at ) VALUES ?",
       [
         allDocs.map((item) => [
           id,
@@ -20,6 +20,8 @@ export const createDocument = async (req, res, next) => {
           item.name,
           item.type,
           item.document,
+          Date.now(),
+          Date.now(),
         ]),
       ]
     );

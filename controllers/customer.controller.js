@@ -33,17 +33,16 @@ export const createCustomer = async (req, res, next) => {
       province,
       country,
       payment_net_days,
+      created_at: Date.now(),
+      updated_at: Date.now(),
     });
-    console.log("Result", result);
 
     if (result?.affectedRows !== 0) {
-      res
-        .status(200)
-        .send({
-          message: "Success",
-          data: "Customer created successfully",
-          id: result.insertId,
-        });
+      res.status(200).send({
+        message: "Success",
+        data: "Customer created successfully",
+        id: result.insertId,
+      });
       return;
     }
   } catch (error) {
@@ -85,6 +84,7 @@ export const editCustomer = async (req, res, next) => {
         province,
         country,
         payment_net_days,
+        updated_at: Date.now(),
       },
       req.query.id,
     ]);

@@ -18,6 +18,8 @@ export const signUp = async (req, res, next) => {
       full_name,
       email,
       password: encryptedPassword,
+      created_at: Date.now(),
+      updated_at: Date.now(),
     });
 
     console.log("Result", result);

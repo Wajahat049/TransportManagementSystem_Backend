@@ -65,17 +65,17 @@ export const createEquipment = async (req, res, next) => {
       lessor_end_date,
       lessor_payment_before_tax,
       lessor_down_payment,
+      created_at: Date.now(),
+      updated_at: Date.now(),
     });
     console.log("Result", result);
 
     if (result?.affectedRows !== 0) {
-      res
-        .status(200)
-        .send({
-          message: "Success",
-          data: "Equipment created successfully",
-          id: result.insertId,
-        });
+      res.status(200).send({
+        message: "Success",
+        data: "Equipment created successfully",
+        id: result.insertId,
+      });
       return;
     }
   } catch (error) {
@@ -149,6 +149,7 @@ export const editEquipment = async (req, res, next) => {
         lessor_end_date,
         lessor_payment_before_tax,
         lessor_down_payment,
+        updated_at: Date.now(),
       },
       req.query.id,
     ]);
